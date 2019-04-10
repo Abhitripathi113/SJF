@@ -25,17 +25,20 @@ void gant_c(Process p[], int a);
 
 int main()
 {
+    Process p[MAXIMUM_PROCESS];
+    int a, i, j;
+    puts("\n\n\t\tSHORTEST JOB FIRST SCHEDULING ALGORITHM \n");
 
-    int burst_time[20],arrival_time[10],number_of_process,waiting_time[10],turnaround_time[10],i,j,temp,st[10],ft[10];
-    int total_wt=0,total_ta=0;
-    float average_waiting_time,average_turnaround_time;
-    char process_name[10][10],t[10];
-   
-    printf("\tEnter the number of process:");
-    scanf("%d",&number_of_process);
-    for(i=0; i<number_of_process; i++)
-    {
-        printf("\tEnter Process Name, Arrival Time and Burst Time:\n");
-        
-        scanf("%s%d%d",&process_name[i],&arrival_time[i],&burst_time[i]);
+    printf("\t\tEnter total process: ");
+    scanf("%d", &a);
+    printf("\t\tEnter burst time for each process:\n");
+    for(i=0; i<a; i++) {
+        printf("\t\tP[%d]: ", i+1);
+        scanf("%d", &p[i].b_time);
+        p[i].pid = i+1;
     }
+
+    sort_btime(p, a);
+    calc_wtime(p, a);
+
+
