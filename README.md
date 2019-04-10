@@ -1,8 +1,28 @@
 # SJF
 Scheduler using shortest job first scheduling and print the outlook of Gant chart on the computer screen
 
-#include<stdio.h>
-#include<string.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAXIMUM_PROCESS 100
+
+struct process {
+    int pid;
+    int b_time;
+    int w_time;
+};
+
+typedef struct process Process;
+
+
+double ave_wtime;
+int tot_wtime;
+
+void sort_btime(Process p[], int a);
+void calc_wtime(Process p[], int a);
+void gant_c(Process p[], int a);
+
 int main()
 {
 
