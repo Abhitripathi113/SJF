@@ -41,4 +41,52 @@ int main()
     sort_btime(p, a);
     calc_wtime(p, a);
 
+    ave_wtime = (double) ( (double)tot_wtime / (double) a );
 
+    puts("");
+    printf("\t\tAverage Waiting Time: %.2lf\n",ave_wtime);
+
+    printf("\t\tGantt Chart:\n");
+    gant_c(p, a);
+
+
+    return 0;
+}
+
+void sort_btime(Process p[], int a)
+{
+    int i, j;
+    Process temp;
+    for(i=0; i<a-1; i++) {
+        for(j=0; j<a-1-i; j++) {
+            if(p[j].b_time > p[j+1].b_time) {
+                temp = p[j];
+                p[j] = p[j+1];
+                p[j+1] = temp;
+            }
+        }
+    }
+}
+
+void calc_wtime(Process p[], int n)
+{
+    int i;
+    tot_wtime = 0;
+    p[0].w_time = 0;
+    for(i=1; i<n; i++) {
+        p[i].w_time = p[i-1].w_time + p[i-1].b_time;
+        tot_wtime += p[i].w_time;
+    }
+}
+
+void gant_c(Process p[], int n)
+{
+    int i, j;
+    int last = p[n-1].b_time + ( n== 1 ? 0 : p[n-1].w_time);
+    // for upper line
+    printf(" ");
+    for(i=0; i<n; i++) {
+        for(j=0; j<p[i].b_time; j++) printf("--");
+        printf(" ");
+    }
+    printf("\n|");
