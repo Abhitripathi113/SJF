@@ -4,7 +4,6 @@ Scheduler using shortest job first scheduling and print the outlook of Gant char
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #define MAXIMUM_PROCESS 100
 
 struct process {
@@ -14,7 +13,6 @@ struct process {
 };
 
 typedef struct process Process;
-
 
 double ave_wtime;
 int tot_wtime;
@@ -89,4 +87,40 @@ void gant_c(Process p[], int n)
         for(j=0; j<p[i].b_time; j++) printf("--");
         printf(" ");
     }
+    
     printf("\n|");
+
+ // for middle line
+    for(i=0; i<n; i++) {
+        for(j=0; j<p[i].b_time-1; j++) printf(" ");
+        printf("p%d", p[i].pid);
+        for(j=0; j<p[i].b_time-1; j++) printf(" ");
+        printf("|");
+    }
+    
+    printf("\n ");
+    
+    // for bottom line
+    for(i=0; i<n; i++) {
+        for(j=0; j<p[i].b_time; j++) printf("--");
+        printf(" ");
+    }
+    
+    printf("\n");
+
+    // printing waiting time
+    int minus = 0;
+    for(i=0; i<n; i++) {
+        if(p[i].w_time>9) printf(" ");
+        printf("%d", p[i].w_time);
+        if(p[i+1].w_time>9){
+          minus = 1;
+        }
+        
+        if(i+1 == n )  if (last>9) minus = 1;
+        for(j=0; j<p[i].b_time-minus; j++) printf("  ");
+
+    }
+    if(last>9) printf(" ");
+    printf("%d\n", last);
+}
